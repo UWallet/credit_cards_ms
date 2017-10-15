@@ -6,8 +6,8 @@ class CreditCard < ApplicationRecord
   validates :amount, numericality: {:greater_than => -1,message: "Must be greater than 0"}
   validates_format_of :number, :with =>  /[0-9]+/
   validates :number, length: { in: 14..20, message: "Must have at least 15 digits and lest than 20"}
-  validates :expiration_month, numericality: {:greater_than => 0, :less_than => 12, message: "Months between 1 and 12"}
-  validates :expiration_year, numericality: {:greater_than => 2017, :less_than => 2100, message: "Invalid year"}
+  validates :expiration_month, numericality: {:greater_than => 0, :less_than => 13, message: "Months between 1 and 12"}
+  validates :expiration_year, numericality: {:greater_than => 2016, :less_than => 2101, message: "Invalid year"}
 
   #validates :number, numericality: {:greater_than => 99999999999999, :less_than => 10000000000000000000, message: "Must have at least 15 digits and lest than 20"}
 
