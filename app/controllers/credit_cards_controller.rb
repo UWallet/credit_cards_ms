@@ -72,25 +72,12 @@ class CreditCardsController < ApplicationController
     #if !(Integer(params[:number]) rescue false)
     #  renderError("Bad Request", 400, "The parameter number is not a Integer")
     #  return -1
-    if !(Integer(params[:amount]) rescue false)
-      renderError("Not Acceptable (Invalid Params)", 400, "The parameter amount is not an Integer")
-      return -1
-    elsif !(Integer(params[:expiration_month]) rescue false)
-      renderError("Not Acceptable (Invalid Params)", 400, "The parameter expiration_month is not an Integer")
-      return -1
-    elsif !(Integer(params[:expiration_year]) rescue false)
-      renderError("Not Acceptable (Invalid Params)", 400, "The parameter expiration_year is not an Integer")
-    elsif !(Integer(params[:user_id]) rescue false)
-      renderError("Not Acceptable (Invalid Params)", 400, "The parameter user_id is not an Integer")
-      return -1
-    else
       @credit_card = CreditCard.new(credit_card_params)
-    end
 
     if @credit_card.save
-      head 201
+      render status: 201
     else
-      render json: @credit_card.errors, status: :unprocessable_entity
+      render json: @credit_card.errors, status: 422
     end
   end
   # POST /credit_cards
@@ -111,9 +98,9 @@ class CreditCardsController < ApplicationController
     if(@credit_card)
       if (!params[:number]) && ( !params[:user_id])
         if @credit_card.update(credit_card_params)
-          head 204
+          render status: 204
         else
-          render json: @credit_card.errors, status: :unprocessable_entity
+          render json: @credit_card.errors, status: 422
         end
       else
         renderResponse("Not acceptable",406,"Only expiration_month and expiration_year can be updated")
@@ -146,7 +133,7 @@ class CreditCardsController < ApplicationController
     end
     if(@credit_card)
       @credit_card.destroy
-      head 200
+      render status: 200
     else
       renderError("Not Found", 404, "The resource does not exist")
     end

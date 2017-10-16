@@ -1,13 +1,13 @@
 class CreditCard < ApplicationRecord
   #default_scope {order("CreditCard.created_at ASC")}
   scope :order_by_name, -> (type) {order("CreditCard.user_id  #{type}")}
-  validates :number, :amount, :expiration_year, :expiration_month, :user_id, presence: {message: "This atributte can't be empty"}
-  validates :number, uniqueness: {message: "this credit card is already in use"}
-  validates :amount, numericality: {:greater_than => -1,message: "Must be greater than 0"}
+  validates :number, :amount, :expiration_year, :expiration_month, :user_id, presence: {message: "Este atributo no puede estar vacio"}
+  validates :number, uniqueness: {message: "La tarjeta ya se encuentra registrada"}
+  validates :amount, numericality: {:greater_than => -1,message: "El valor tiene que ser mayor a 0"}
   validates_format_of :number, :with =>  /[0-9]+/
-  validates :number, length: { in: 14..20, message: "Must have at least 15 digits and lest than 20"}
-  validates :expiration_month, numericality: {:greater_than => 0, :less_than => 13, message: "Months between 1 and 12"}
-  validates :expiration_year, numericality: {:greater_than => 2016, :less_than => 2101, message: "Invalid year"}
+  validates :number, length: { in: 14..20, message: "El numero de la tarjeta debe tener entre 15 y 20 caracteres"}
+  validates :expiration_month, numericality: {:greater_than => 0, :less_than => 13, message: "Numero de mes invalido"}
+  validates :expiration_year, numericality: {:greater_than => 2016, :less_than => 2101, message: "Año invalido"}
 
   #validates :number, numericality: {:greater_than => 99999999999999, :less_than => 10000000000000000000, message: "Must have at least 15 digits and lest than 20"}
 
