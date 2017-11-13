@@ -1,7 +1,7 @@
 FROM ruby:2.3
-RUN mkdir /credit_cards_ms
-WORKDIR /credit_cards_ms
-ADD Gemfile /credit_cards_ms/Gemfile
-ADD Gemfile.lock /credit_cards_ms/Gemfile.lock
+RUN mkdir /credit-cards-ms
+WORKDIR /credit_cards-ms
+ADD Gemfile /credit_cards-ms/Gemfile
+ADD Gemfile.lock /credit_cards-ms/Gemfile.lock
 RUN bundle install
-ADD . /credit_cards_ms
+ADD . /credit-cards-ms
