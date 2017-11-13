@@ -4,7 +4,9 @@ class CreditCard < ApplicationRecord
   validates :number, :amount, :expiration_year, :expiration_month, :user_id, presence: {message: "Este atributo no puede estar vacio"}
   validates :number, uniqueness: {message: "La tarjeta ya se encuentra registrada"}
   validates :amount, numericality: {:greater_than => -1,message: "El valor tiene que ser mayor a 0"}
-  validates_format_of :number, :with =>  /[0-9]+/
+  #{ with: /\A[a-zA-Z]+\z/, message: "only allows letters" }
+  validates :number, format: { with: /[0-9]+/,  message: "El numero de la tarjeta no puede tener letras" }
+  #validates_format_of :number, :with =>  /[0-9]+/ {message: "El numero de la tarjeta no puede tener letras"}
   validates :number, length: { in: 14..20, message: "El numero de la tarjeta debe tener entre 15 y 20 caracteres"}
   validates :expiration_month, numericality: {:greater_than => 0, :less_than => 13, message: "Numero de mes invalido"}
   validates :expiration_year, numericality: {:greater_than => 2016, :less_than => 2101, message: "Año invalido"}
